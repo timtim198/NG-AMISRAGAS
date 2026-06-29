@@ -370,11 +370,11 @@
       btn.disabled=false; btn.textContent=orig;
       $('printBtn').style.display='block';
       if(res&&res.skipped){msg.className='submsg ok';msg.textContent='התוצאה חושבה. (שליחת מייל לא הוגדרה)';}
-      else if(res&&res.success){msg.className='submsg ok';msg.textContent='הפרטים נשלחו לנציג אמישראגז. ניצור קשר בהקדם.';}
-      else{msg.className='submsg bad';msg.textContent='התוצאה חושבה, אך שליחת הפרטים נכשלה. נסו שוב או צרו קשר טלפוני.';}
-    }).catch(function(){
+      else if(res&&res.success){msg.className='submsg ok';msg.textContent='נשלח בהצלחה! בדקו את המייל (כולל ספאם).';}
+      else{msg.className='submsg bad';msg.textContent='השרת דחה: '+((res&&res.message)?res.message:JSON.stringify(res));}
+    }).catch(function(err){
       btn.disabled=false; btn.textContent=orig; $('printBtn').style.display='block';
-      msg.className='submsg bad'; msg.textContent='התוצאה חושבה, אך שליחת הפרטים נכשלה (בעיית רשת).';
+      msg.className='submsg bad'; msg.textContent='שגיאת רשת: '+(err&&err.message?err.message:err);
     });
   });
 
@@ -400,21 +400,7 @@
       .catch(function(){ /* unreachable: keep available */ });
   }
 
-  // ---- cosmetic copy deterrents (not real protection) ----
-  document.addEventListener('contextmenu',function(e){e.preventDefault();});
-  document.addEventListener('dragstart',function(e){e.preventDefault();});
-  ['copy','cut'].forEach(function(ev){
-    document.addEventListener(ev,function(e){
-      var t=e.target; if(t&&(t.tagName==='INPUT'||t.tagName==='SELECT'||t.tagName==='TEXTAREA'))return;
-      e.preventDefault();
-    });
-  });
-  document.addEventListener('keydown',function(e){
-    var k=e.key.toLowerCase();
-    if(k==='f12'){e.preventDefault();return;}
-    if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(k==='i'||k==='j'||k==='c')){e.preventDefault();return;}
-    if((e.ctrlKey||e.metaKey)&&(k==='u'||k==='s')){e.preventDefault();return;}
-  });
+  // (deterrents disabled in diagnostic build)
 })();
 </script>
 </body>
