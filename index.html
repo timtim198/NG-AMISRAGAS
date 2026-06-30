@@ -97,6 +97,10 @@
   .sech{font-size:12px;color:#cfe3ea;font-weight:700;margin-top:10px;border-top:1px solid rgba(255,255,255,.12);padding-top:8px;margin-bottom:2px}
   .rb{color:var(--ember);font-style:normal;font-weight:700}
   .bbnote{font-size:10.5px;color:#9fc4d2;margin-top:9px;line-height:1.55}
+.btn.reset{background:#fff;color:var(--muted);border:1px solid var(--line);margin-top:10px;font-size:13.5px}
+  .btn.reset:hover{filter:brightness(.97);color:var(--text)}
+  .verbar{display:flex;justify-content:space-between;align-items:center;max-width:1080px;margin:14px auto 0;padding:0 22px;color:var(--muted);font-size:11.5px}
+  .verbar .vtag{background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-weight:600}
   .result{position:sticky;top:18px}
   .panel{background:linear-gradient(160deg,var(--ink) 0%,var(--ink-2) 100%);border-radius:14px;color:#fff;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06)}
   .panel .strip{height:4px;background:linear-gradient(90deg,var(--cyan) 0%,var(--ember) 100%)}
@@ -321,6 +325,7 @@
             <button class="btn go" id="goBtn">חשב והצג תוצאה</button>
             <div class="submsg" id="submsg"></div>
             <button class="btn print" id="printBtn" style="display:none">הדפסה / שמירה כ‑PDF</button>
+            <button class="btn reset" id="resetBtn">↻ תחשיב חדש (איפוס)</button>
             <div class="formnote">בלחיצה על הכפתור פרטיכם יישלחו לנציג אמישראגז ליצירת קשר.</div>
           </div>
         </div>
@@ -339,6 +344,11 @@
         </div>
       </div>
     </aside>
+  </div>
+
+  <div class="verbar">
+    <span class="vtag">גרסה 1.4</span>
+    <span>מחשבון חיסכון והחזר השקעה · אמישראגז Energy</span>
   </div>
 
   <div class="foot">
@@ -486,6 +496,20 @@
   });
 
   $('printBtn').addEventListener('click',function(){window.print();});
+
+  // reset everything to defaults and re-lock the result
+  var DEFAULTS={lpg_q:'',lpg_p:'',maz_q:'300',maz_p:'2600',dsl_q:'',dsl_p:'',
+    gas_usd:'5.5',usd_ils:'3.5',inv_sys:'1000000',inv_burn:'200000',inv_far:'0',
+    inv_misc:'200000',grant:'0',sens:'1',c_name:'',c_org:'',c_email:'',c_phone:''};
+  $('resetBtn').addEventListener('click',function(){
+    Object.keys(DEFAULTS).forEach(function(id){ if($(id))$(id).value=DEFAULTS[id]; });
+    $('region').selectedIndex=0;
+    ['c_name','c_org'].forEach(function(id){$(id).classList.remove('err');});
+    var p=$('panel'); p.classList.add('locked'); p.classList.remove('unlocked');
+    $('printBtn').style.display='none'; $('submsg').className='submsg'; $('submsg').textContent='';
+    window.scrollTo({top:0,behavior:'smooth'});
+    $('c_name').focus();
+  });
 
   // prepare a clean one-page print: filename by factory, hide zero-qty fuels
   function prepPrint(){
