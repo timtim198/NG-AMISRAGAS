@@ -182,7 +182,11 @@
     .pfoot p{margin:0 0 5px}
     /* page 1 result */
     .presult{max-width:140mm;margin:8mm auto 0}
-    .presult .panel{-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:14px}
+    /* dark result box prints reliably via a FOREGROUND image fill (always prints,
+       independent of the browser's "background graphics" setting). White text sits on top. */
+    .presult .panel{position:relative;overflow:hidden;border-radius:14px;background:#0C1E28 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .presult .panel>.pbg{position:absolute;inset:0;width:100%;height:100%;z-index:0;border:0}
+    .presult .panel>.strip,.presult .panel>.pad{position:relative;z-index:1}
     .presult .panel .pad{padding:22px 24px}
     .presult .dual .cell .cv{font-size:34px}
     .presult .saving .amt{font-size:30px}
@@ -355,7 +359,7 @@
   </div>
 
   <div class="verbar">
-    <span class="vtag">גרסה 1.8</span>
+    <span class="vtag">גרסה 1.9</span>
     <span>מחשבון חיסכון והחזר השקעה · אמישראגז Energy</span>
   </div>
 
@@ -575,6 +579,12 @@
     var data=$('panel').querySelector('.data').cloneNode(true);
     data.querySelectorAll('[id]').forEach(function(n){n.removeAttribute('id');});
     var holder=$('pr_result'); holder.innerHTML=''; holder.appendChild(data);
+    var pPanel=holder.closest('.panel');
+    if(pPanel && !pPanel.querySelector('.pbg')){
+      var bg=document.createElement('img'); bg.className='pbg'; bg.setAttribute('alt','');
+      bg.src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230C1E28'/></svg>";
+      pPanel.insertBefore(bg, pPanel.firstChild);
+    }
     // page 2: build details
     var fuels=[['גפ״מ','lpg_q','lpg_p'],['מזוט','maz_q','maz_p'],['סולר','dsl_q','dsl_p']];
     var fuelRows='';
