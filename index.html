@@ -163,44 +163,60 @@
   #kill p{margin:0;color:#bcd5de;font-size:15px;line-height:1.7}
 
   @media print{
-    body{background:#fff}
-    .top{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .cta,.card-h .badge,.formnote,.submsg,#kill,.cap,.grant-note{display:none !important}
-    .grid{grid-template-columns:1fr 340px;gap:12px}
+    body{background:#fff;font-size:10.5px}
+    .top{-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:7px 14px}
+    #logo{height:34px}
+    .top-accent{margin:-7px -14px 7px !important}
+    .top .subtitle{font-size:11px}
+    .cta,.card-h .badge,.formnote,.submsg,#kill,.cap,.grant-note,.verbar{display:none !important}
+    .grid{grid-template-columns:1fr 320px;gap:9px}
     .panel,.contact{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .wrap{margin:10px auto 0}
-    .card{box-shadow:none;border-color:#d8e0e4}
-    .card+.card{margin-top:9px}
-    .card-h{padding:9px 14px 0}
-    .card-h h2{font-size:13.5px}
-    .card-b{padding:8px 14px 11px}
-    .row{padding:3px 0}
-    .row label{font-size:12px}
-    .ftable th{padding-bottom:3px;font-size:11px}
-    .ftable td{padding:2px 8px}
-    input,select{padding:4px 8px;font-size:12.5px}
-    .fld label{font-size:11px;margin-bottom:1px}
-    .two{gap:8px}
-    .panel .pad{padding:13px}
-    .dual .cell .cv{font-size:24px}
-    .saving .amt{font-size:21px}
-    .hero-sub{margin-bottom:10px}
-    .foot{font-size:9.5px;line-height:1.5;padding-top:10px}
+    .wrap{margin:3px auto 0;padding:0 14px}
+    .card{box-shadow:none;border-color:#d8e0e4;border-radius:9px}
+    .card+.card{margin-top:5px}
+    .card-h{padding:6px 11px 0}
+    .card-h h2{font-size:12px}
+    .card-b{padding:5px 11px 7px}
+    .row{padding:1.5px 0}
+    .row.unit{padding:1px 0}
+    .row label{font-size:10.5px;line-height:1.25}
+    .row label .hint{font-size:9px;margin-top:0}
+    .fld label{font-size:9.5px;margin-bottom:0}
+    .two{gap:6px}
+    .ftable th{padding-bottom:2px;font-size:10px}
+    .ftable td{padding:1.5px 6px}
+    input,select{padding:2.5px 7px;font-size:11px;border-radius:6px}
+    .affix .cur{font-size:10.5px}
+    .panel .pad{padding:10px}
+    .panel .strip{height:3px}
+    .kicker{font-size:10.5px}
+    .dual{margin:4px 0 2px}
+    .dual .cell{padding:6px 5px}
+    .dual .cell .cv{font-size:20px}
+    .dual .cell .clbl{font-size:10px;margin-bottom:2px}
+    .dual .cell .cu{font-size:10px}
+    .hero-sub{font-size:10px;margin-bottom:7px}
+    .saving{padding:7px 10px;margin-bottom:8px}
+    .saving .lbl{font-size:11px}
+    .saving .amt{font-size:18px}
+    .saving .pct{font-size:10.5px}
+    .lines{gap:4px}
+    .line{font-size:11px}
+    .line.sub .k,.line.sub .x{font-size:11px}
+    .sech{margin-top:5px;padding-top:5px;font-size:10.5px}
+    .chip{font-size:10px;margin-top:8px}
     tr.printhide{display:none !important}
-    .contact{margin-top:9px;break-inside:avoid;page-break-inside:avoid}
-    .contact .cpad{padding:11px 14px}
-    .contact .ctitle{margin-bottom:5px}
-    .contact a.cbtn{padding:6px 10px;font-size:12px}
     .panel{break-inside:avoid;page-break-inside:avoid}
-    .saving{padding:9px 12px;margin-bottom:11px}
-    .dual{margin:6px 0 3px}
-    .dual .cell{padding:8px 6px}
-    .lines{gap:6px}
-    .sech{margin-top:7px;padding-top:6px}
-    .wrap{margin:6px auto 0}
-    .card+.card{margin-top:7px}
-    .foot{font-size:9px;padding-top:8px;break-inside:avoid;page-break-inside:avoid}
-    @page{margin:9mm}
+    .contact{margin-top:6px;break-inside:avoid;page-break-inside:avoid}
+    .contact .cstrip{height:3px}
+    .contact .cpad{padding:8px 11px}
+    .contact .ctitle{margin-bottom:3px;font-size:11px}
+    .contact .cname{font-size:14px}
+    .contact .crole{font-size:10.5px}
+    .contact .cbtns{margin-top:8px;gap:7px}
+    .contact a.cbtn{padding:5px 9px;font-size:11px}
+    .foot{font-size:8px;line-height:1.45;padding-top:6px;break-inside:avoid;page-break-inside:avoid}
+    @page{margin:7mm}
   }
 </style>
 </head>
@@ -351,7 +367,7 @@
   </div>
 
   <div class="verbar">
-    <span class="vtag">גרסה 1.5</span>
+    <span class="vtag">גרסה 1.7</span>
     <span>מחשבון חיסכון והחזר השקעה · אמישראגז Energy</span>
   </div>
 
@@ -565,6 +581,23 @@
       var p=$('panel');
       if(p.classList.contains('unlocked')){p.classList.add('locked');p.classList.remove('unlocked');$('printBtn').style.display='none';$('submsg').className='submsg';}
     });
+  });
+
+  // format shekel inputs with thousands + 2 decimals on blur; revert to raw on focus
+  var MONEY_FIELDS=['inv_sys','inv_burn','inv_far','inv_misc','grant','lpg_p','maz_p','dsl_p'];
+  function fmtMoney(id){
+    var el=$(id); var raw=(el.value||'').toString().replace(/[, ]/g,'');
+    if(raw===''){return;} var n=parseFloat(raw); if(!isFinite(n))return;
+    el.value=nf2.format(n);
+  }
+  function rawMoney(id){
+    var el=$(id); var raw=(el.value||'').toString().replace(/[, ]/g,'');
+    if(raw===''){return;} var n=parseFloat(raw); el.value=isFinite(n)?String(n):raw;
+  }
+  MONEY_FIELDS.forEach(function(id){
+    var el=$(id); if(!el)return;
+    el.addEventListener('blur',function(){fmtMoney(id);});
+    el.addEventListener('focus',function(){rawMoney(id);});
   });
 
   // optional logo swap
