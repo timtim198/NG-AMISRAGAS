@@ -92,6 +92,11 @@
   .contact a.cbtn:hover{filter:brightness(1.04)}
   .contact a.cbtn.wa{background:#25D366;color:#fff;border:0;display:flex;align-items:center;justify-content:center;gap:7px}
   .contact a.cbtn.wa svg{width:17px;height:17px;flex:none}
+  .line.sub .k{font-size:12.5px;color:#8fb0bc}
+  .line.sub .x{font-weight:600;color:#dbe8ec;font-size:12.5px}
+  .sech{font-size:12px;color:#cfe3ea;font-weight:700;margin-top:10px;border-top:1px solid rgba(255,255,255,.12);padding-top:8px;margin-bottom:2px}
+  .rb{color:var(--ember);font-style:normal;font-weight:700}
+  .bbnote{font-size:10.5px;color:#9fc4d2;margin-top:9px;line-height:1.55}
   .result{position:sticky;top:18px}
   .panel{background:linear-gradient(160deg,var(--ink) 0%,var(--ink-2) 100%);border-radius:14px;color:#fff;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06)}
   .panel .strip{height:4px;background:linear-gradient(90deg,var(--cyan) 0%,var(--ember) 100%)}
@@ -150,9 +155,42 @@
   @media print{
     body{background:#fff}
     .top{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .cta,.card-h .badge,.formnote,.submsg,#kill{display:none !important}
-    .grid{grid-template-columns:1fr 320px}
-    .panel{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .cta,.card-h .badge,.formnote,.submsg,#kill,.cap,.grant-note{display:none !important}
+    .grid{grid-template-columns:1fr 340px;gap:12px}
+    .panel,.contact{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .wrap{margin:10px auto 0}
+    .card{box-shadow:none;border-color:#d8e0e4}
+    .card+.card{margin-top:9px}
+    .card-h{padding:9px 14px 0}
+    .card-h h2{font-size:13.5px}
+    .card-b{padding:8px 14px 11px}
+    .row{padding:3px 0}
+    .row label{font-size:12px}
+    .ftable th{padding-bottom:3px;font-size:11px}
+    .ftable td{padding:2px 8px}
+    input,select{padding:4px 8px;font-size:12.5px}
+    .fld label{font-size:11px;margin-bottom:1px}
+    .two{gap:8px}
+    .panel .pad{padding:13px}
+    .dual .cell .cv{font-size:24px}
+    .saving .amt{font-size:21px}
+    .hero-sub{margin-bottom:10px}
+    .foot{font-size:9.5px;line-height:1.5;padding-top:10px}
+    tr.printhide{display:none !important}
+    .contact{margin-top:9px;break-inside:avoid;page-break-inside:avoid}
+    .contact .cpad{padding:11px 14px}
+    .contact .ctitle{margin-bottom:5px}
+    .contact a.cbtn{padding:6px 10px;font-size:12px}
+    .panel{break-inside:avoid;page-break-inside:avoid}
+    .saving{padding:9px 12px;margin-bottom:11px}
+    .dual{margin:6px 0 3px}
+    .dual .cell{padding:8px 6px}
+    .lines{gap:6px}
+    .sech{margin-top:7px;padding-top:6px}
+    .wrap{margin:6px auto 0}
+    .card+.card{margin-top:7px}
+    .foot{font-size:9px;padding-top:8px;break-inside:avoid;page-break-inside:avoid}
+    @page{margin:9mm}
   }
 </style>
 </head>
@@ -207,9 +245,9 @@
           <table class="ftable">
             <thead><tr><th>סוג דלק</th><th>כמות <b>שנתית</b> <span class="unit">(טון)</span></th><th>מחיר לטון <span class="unit">(₪)</span></th></tr></thead>
             <tbody>
-              <tr><td class="fuel">גפ״מ</td><td><input id="lpg_q" inputmode="decimal" placeholder="0"></td><td><input id="lpg_p" inputmode="decimal" placeholder="0"></td></tr>
-              <tr><td class="fuel">מזוט</td><td><input id="maz_q" inputmode="decimal" value="300"></td><td><input id="maz_p" inputmode="decimal" value="2600"></td></tr>
-              <tr><td class="fuel">סולר</td><td><input id="dsl_q" inputmode="decimal" placeholder="0"></td><td><input id="dsl_p" inputmode="decimal" placeholder="0"></td></tr>
+              <tr id="row_lpg"><td class="fuel">גפ״מ</td><td><input id="lpg_q" inputmode="decimal" placeholder="0"></td><td><input id="lpg_p" inputmode="decimal" placeholder="0"></td></tr>
+              <tr id="row_maz"><td class="fuel">מזוט</td><td><input id="maz_q" inputmode="decimal" value="300"></td><td><input id="maz_p" inputmode="decimal" value="2600"></td></tr>
+              <tr id="row_dsl"><td class="fuel">סולר</td><td><input id="dsl_q" inputmode="decimal" placeholder="0"></td><td><input id="dsl_p" inputmode="decimal" placeholder="0"></td></tr>
             </tbody>
           </table>
         </div>
@@ -258,10 +296,23 @@
             <div class="hero-sub">ללא עלות מימון</div>
             <div class="saving"><div class="lbl">חיסכון שנתי צפוי</div><div class="amt" id="annual_saving">—</div><div class="pct" id="saving_pct"></div></div>
             <div class="lines">
-              <div class="line"><span class="k">עלות שנתית בדלק הקיים</span><span class="x" id="cur_cost">—</span></div>
-              <div class="line"><span class="k">עלות שנתית בגז טבעי</span><span class="x" id="gas_cost">—</span></div>
+              <div class="sech">עלות שנתית בגז טבעי</div>
+              <div class="line sub"><span class="k">מחיר הגז (ערום)</span><span class="x" id="gas_naked_a">—</span></div>
+              <div class="line sub"><span class="k">בלו <i class="rb">*</i></span><span class="x" id="blo_a">—</span></div>
+              <div class="line sub"><span class="k">הולכה ותעריף מערכתי <i class="rb">*</i></span><span class="x" id="hol_a">—</span></div>
+              <div class="line sub"><span class="k">דמי חלוקה <i class="rb">*</i></span><span class="x" id="dist_a">—</span></div>
+              <div class="line"><span class="k">סה״כ עלות שנתית בגז טבעי</span><span class="x" id="gas_cost">—</span></div>
+
+              <div class="line" style="margin-top:8px"><span class="k">עלות שנתית בדלק הקיים</span><span class="x" id="cur_cost">—</span></div>
               <div class="line"><span class="k">צריכת גז טבעי שנתית</span><span class="x" id="gas_qty">—</span></div>
+
+              <div class="sech">סך ההשקעה</div>
+              <div class="line sub"><span class="k">ציוד והסבה</span><span class="x" id="equip_a">—</span></div>
+              <div class="line sub"><span class="k">עלות חיבור <i class="rb">*</i></span><span class="x" id="conn_a">—</span></div>
+              <div class="line sub" id="grant_line" style="display:none"><span class="k">מענק</span><span class="x" id="grant_a">—</span></div>
               <div class="line tot"><span class="k">סך ההשקעה</span><span class="x" id="invest">—</span></div>
+
+              <div class="bbnote"><i class="rb">*</i> רכיבים אלה הם תשלומי גב‑אל‑גב הנקבעים על ידי הרשויות (משרדי האנרגיה והאוצר) ואינם נקבעים על ידי אמישראגז.</div>
             </div>
             <span class="chip ok" id="class_chip">—</span>
           </div>
@@ -342,8 +393,12 @@
     var r={mmbtu:mmbtu,m3:m3,region:region,size:size,lbl:lbl,curAnnual:lpgQ*lpgP+mazQ*mazP+dslQ*dslP};
     if(!size){r.ok=false;return r;}
     var fees=TBL[region][size];
-    var unit=num('gas_usd')*num('usd_ils')+BLO+HOL+fees.dist*M3;
+    r.gasNaked=num('gas_usd')*num('usd_ils');
+    r.distUnit=fees.dist*M3;
+    var unit=r.gasNaked+BLO+HOL+r.distUnit;
     r.gasAnnual=mmbtu*unit;
+    r.gasNakedA=r.gasNaked*mmbtu; r.bloA=BLO*mmbtu; r.holA=HOL*mmbtu; r.distA=r.distUnit*mmbtu;
+    r.conn=fees.conn; r.equip=num('inv_sys')+num('inv_burn')+num('inv_far')+num('inv_misc');
     r.saving=r.curAnnual-r.gasAnnual;
     r.savingPct=r.curAnnual>0?(r.saving/r.curAnnual)*100:0;
     r.grant=num('grant');
@@ -359,7 +414,8 @@
     var p=$('panel'); p.classList.remove('locked'); p.classList.add('unlocked');
     var chip=$('class_chip');
     if(!r.ok){
-      ['payback','payback_ng','annual_saving','cur_cost','gas_cost','invest'].forEach(function(id){setText(id,'—');});
+      ['payback','payback_ng','annual_saving','cur_cost','gas_cost','invest','gas_naked_a','blo_a','hol_a','dist_a','equip_a','conn_a'].forEach(function(id){setText(id,'—');});
+      $('grant_line').style.display='none';
       setText('saving_pct','');
       setText('gas_qty', r.mmbtu>0?nf0.format(Math.round(r.mmbtu))+' mmBtu':'—');
       chip.className='chip warn';
@@ -368,6 +424,10 @@
     }
     setText('gas_qty',nf0.format(Math.round(r.mmbtu))+' mmBtu');
     setText('cur_cost',ils(r.curAnnual)); setText('gas_cost',ils(r.gasAnnual));
+    setText('gas_naked_a',ils(r.gasNakedA)); setText('blo_a',ils(r.bloA));
+    setText('hol_a',ils(r.holA)); setText('dist_a',ils(r.distA));
+    setText('equip_a',ils(r.equip)); setText('conn_a',ils(r.conn));
+    if(r.grant>0){$('grant_line').style.display='';setText('grant_a','−'+ils(r.grant));}else{$('grant_line').style.display='none';}
     setText('invest',ils(r.invest)); setText('annual_saving',ils(r.saving));
     var pct=$('saving_pct');
     if(r.saving>0){pct.textContent='כ‑'+nf1.format(r.savingPct)+'% חיסכון לעומת הדלק הקיים';pct.style.color='#7fd4a8';}
@@ -426,6 +486,21 @@
   });
 
   $('printBtn').addEventListener('click',function(){window.print();});
+
+  // prepare a clean one-page print: filename by factory, hide zero-qty fuels
+  function prepPrint(){
+    var org=($('c_org').value||'').trim()||($('c_name').value||'').trim()||'לקוח';
+    document.title='תחשיב חיסכון גז טבעי - '+org;
+    [['lpg_q','row_lpg'],['maz_q','row_maz'],['dsl_q','row_dsl']].forEach(function(pr){
+      var row=$(pr[1]); if(!row)return; if(num(pr[0])>0)row.classList.remove('printhide'); else row.classList.add('printhide');
+    });
+  }
+  function restorePrint(){
+    document.title='מחשבון חיסכון והחזר השקעה – גז טבעי';
+    ['row_lpg','row_maz','row_dsl'].forEach(function(id){var r=$(id);if(r)r.classList.remove('printhide');});
+  }
+  window.addEventListener('beforeprint',prepPrint);
+  window.addEventListener('afterprint',restorePrint);
 
   // re-lock the result if inputs change after computing (so the email reflects what they saw)
   ['lpg_q','lpg_p','maz_q','maz_p','dsl_q','dsl_p','gas_usd','usd_ils','region','inv_sys','inv_burn','inv_far','inv_misc','grant','sens'].forEach(function(id){
