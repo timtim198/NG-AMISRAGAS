@@ -162,61 +162,49 @@
   #kill h3{margin:0 0 8px;font-size:22px}
   #kill p{margin:0;color:#bcd5de;font-size:15px;line-height:1.7}
 
+  #printdoc{display:none}
   @media print{
-    body{background:#fff;font-size:10.5px}
-    .top{-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:7px 14px}
-    #logo{height:34px}
-    .top-accent{margin:-7px -14px 7px !important}
-    .top .subtitle{font-size:11px}
-    .cta,.card-h .badge,.formnote,.submsg,#kill,.cap,.grant-note,.verbar{display:none !important}
-    .grid{grid-template-columns:1fr 320px;gap:9px}
-    .panel,.contact{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .wrap{margin:3px auto 0;padding:0 14px}
-    .card{box-shadow:none;border-color:#d8e0e4;border-radius:9px}
-    .card+.card{margin-top:5px}
-    .card-h{padding:6px 11px 0}
-    .card-h h2{font-size:12px}
-    .card-b{padding:5px 11px 7px}
-    .row{padding:1.5px 0}
-    .row.unit{padding:1px 0}
-    .row label{font-size:10.5px;line-height:1.25}
-    .row label .hint{font-size:9px;margin-top:0}
-    .fld label{font-size:9.5px;margin-bottom:0}
-    .two{gap:6px}
-    .ftable th{padding-bottom:2px;font-size:10px}
-    .ftable td{padding:1.5px 6px}
-    input,select{padding:2.5px 7px;font-size:11px;border-radius:6px}
-    .affix .cur{font-size:10.5px}
-    .panel .pad{padding:10px}
-    .panel .strip{height:3px}
-    .kicker{font-size:10.5px}
-    .dual{margin:4px 0 2px}
-    .dual .cell{padding:6px 5px}
-    .dual .cell .cv{font-size:20px}
-    .dual .cell .clbl{font-size:10px;margin-bottom:2px}
-    .dual .cell .cu{font-size:10px}
-    .hero-sub{font-size:10px;margin-bottom:7px}
-    .saving{padding:7px 10px;margin-bottom:8px}
-    .saving .lbl{font-size:11px}
-    .saving .amt{font-size:18px}
-    .saving .pct{font-size:10.5px}
-    .lines{gap:4px}
-    .line{font-size:11px}
-    .line.sub .k,.line.sub .x{font-size:11px}
-    .sech{margin-top:5px;padding-top:5px;font-size:10.5px}
-    .chip{font-size:10px;margin-top:8px}
-    tr.printhide{display:none !important}
-    .panel{break-inside:avoid;page-break-inside:avoid}
-    .contact{margin-top:6px;break-inside:avoid;page-break-inside:avoid}
-    .contact .cstrip{height:3px}
-    .contact .cpad{padding:8px 11px}
-    .contact .ctitle{margin-bottom:3px;font-size:11px}
-    .contact .cname{font-size:14px}
-    .contact .crole{font-size:10.5px}
-    .contact .cbtns{margin-top:8px;gap:7px}
-    .contact a.cbtn{padding:5px 9px;font-size:11px}
-    .foot{font-size:8px;line-height:1.45;padding-top:6px;break-inside:avoid;page-break-inside:avoid}
-    @page{margin:7mm}
+    header.top, main.wrap, #kill{display:none !important}
+    #printdoc{display:block}
+    html,body{background:#fff}
+    @page{margin:0}
+    .psheet{box-sizing:border-box;width:210mm;min-height:297mm;padding:13mm 14mm 11mm;page-break-after:always;display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .psheet:last-child{page-break-after:auto}
+    .ph{display:flex;align-items:center;justify-content:space-between;padding-bottom:9px;margin-bottom:0}
+    .ph .ttlblock{text-align:right}
+    .ph .pttl{font-size:15px;font-weight:700;color:#16252D}
+    .ph .psub{font-size:11px;color:#5E727C;margin-top:2px}
+    .ph img{height:40px}
+    .pacc{height:3px;background:linear-gradient(90deg,#2BB673 0%,#1B1B5C 100%);border-radius:3px;margin-bottom:16px}
+    .pbody{flex:1 0 auto}
+    .pfoot{border-top:1px solid #dce5e9;padding-top:9px;margin-top:12px;color:#5E727C;font-size:8.5px;line-height:1.55}
+    .pfoot b{color:#16252D}
+    .pfoot p{margin:0 0 5px}
+    /* page 1 result */
+    .presult{max-width:140mm;margin:8mm auto 0}
+    .presult .panel{-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:14px}
+    .presult .panel .pad{padding:22px 24px}
+    .presult .dual .cell .cv{font-size:34px}
+    .presult .saving .amt{font-size:30px}
+    .presult .kicker{font-size:13px}
+    .presult .line,.presult .line.sub .k,.presult .line.sub .x{font-size:13px}
+    .presult .sech{font-size:13px}
+    .presult .chip{display:none}
+    .ptag{text-align:center;color:#5E727C;font-size:10.5px;margin-top:9mm}
+    /* page 2 details */
+    .pcard{border:1px solid #dce5e9;border-radius:11px;padding:11px 15px;margin-bottom:11px;break-inside:avoid}
+    .pcard h3{margin:0 0 9px;font-size:13px;color:#1B1B5C;border-bottom:1px solid #eef3f5;padding-bottom:6px}
+    .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 26px}
+    .pitem{display:flex;justify-content:space-between;font-size:11.5px;padding:3px 0;border-bottom:1px dotted #eef3f5}
+    .pitem .pk{color:#5E727C}
+    .pitem .pv{color:#16252D;font-weight:600;font-variant-numeric:tabular-nums}
+    .pitem.reg .pv{color:#1E8FB0}
+    .pfull{grid-column:1 / -1}
+    .pcontact{display:flex;justify-content:space-between;align-items:center;border:1px solid #dce5e9;border-radius:11px;padding:12px 15px;background:#f7fafb;margin-top:2px}
+    .pcontact .nm{font-weight:700;font-size:14px;color:#16252D}
+    .pcontact .rl{font-size:11px;color:#5E727C;margin-top:1px}
+    .pcontact .cc{font-size:12px;color:#16252D;text-align:left}
+    .pcontact .cc b{color:#1B1B5C}
   }
 </style>
 </head>
@@ -367,7 +355,7 @@
   </div>
 
   <div class="verbar">
-    <span class="vtag">גרסה 1.7</span>
+    <span class="vtag">גרסה 1.8</span>
     <span>מחשבון חיסכון והחזר השקעה · אמישראגז Energy</span>
   </div>
 
@@ -381,6 +369,41 @@
   <!-- honeypot -->
   <input class="hp" type="checkbox" name="botcheck" id="botcheck" tabindex="-1" autocomplete="off">
 </main>
+
+<div id="printdoc">
+  <section class="psheet" id="psheet1">
+    <div class="ph">
+      <div class="ttlblock"><div class="pttl">תחשיב חיסכון והחזר השקעה — מעבר לגז טבעי</div><div class="psub" id="pr_sub1">—</div></div>
+      <img id="pr_logo1" src="" alt="אמישראגז Energy">
+    </div>
+    <div class="pacc"></div>
+    <div class="pbody">
+      <div class="presult"><div class="panel"><div class="strip"></div><div class="pad" id="pr_result"></div></div></div>
+      <div class="ptag">החזר ההשקעה והחיסכון מחושבים נומינלית וללא עלות מימון.</div>
+    </div>
+    <div class="pfoot">
+      <p><b>התחשיב הינו לאוריינטציה בלבד ואינו מהווה הצעת מחיר.</b> עלות החיבור, דמי החלוקה, ההולכה והבלו נקבעים על ידי משרדי האנרגיה והאוצר ומהווים תשלומי גב‑אל‑גב שאינם נקבעים על ידי אמישראגז.</p>
+    </div>
+  </section>
+
+  <section class="psheet" id="psheet2">
+    <div class="ph">
+      <div class="ttlblock"><div class="pttl">פירוט הנתונים</div><div class="psub" id="pr_sub2">—</div></div>
+      <img id="pr_logo2" src="" alt="אמישראגז Energy">
+    </div>
+    <div class="pacc"></div>
+    <div class="pbody" id="pr_details"></div>
+    <div class="pcontact">
+      <div><div class="nm">תומר ביטון</div><div class="rl">מנהל תחום גז טבעי וחשמל · אמישראגז Energy</div></div>
+      <div class="cc">לבירור על מענקים ולהצעה מותאמת<br><b>ng@amisragas.co.il · 052-8208202</b></div>
+    </div>
+    <div class="pfoot">
+      <p><b>התחשיב הינו לאוריינטציה בלבד ואינו מהווה הצעת מחיר.</b> החזר ההשקעה מחושב נומינלית וללא עלות מימון. עלות החיבור, דמי החלוקה, ההולכה והבלו נקבעים על ידי משרדי האנרגיה והאוצר; הבלו צמוד לקביעת אגף המכס והבלו ומתעדכן מעת לעת.</p>
+      <p><b>הערה בדבר המענק:</b> ככל שמוצג בתחשיב רכיב מענק, הוא מבוסס על האפשרות להגשת בקשה במסגרת מסלולי הסיוע הממשלתיים להסבת מערכות לגז טבעי (לרבות הוראת מנכ״ל 4.82), ככל שיהיו פתוחים להגשה במועד הרלוונטי. קבלת המענק אינה מובטחת והיא כפופה, בין היתר, לעמידת הפרויקט ותנאי המבקש בדרישות ההוראה, לקבלת כלל האישורים הנדרשים, לעמידה באבני הדרך שנקבעו על ידי הגורמים המוסמכים ולמתן אישור סופי של הרשויות. לפיכך, החישוב הכולל מענק מובא לצורכי המחשה בלבד ואינו מהווה התחייבות לקבלת מענק או לגובהו.</p>
+    </div>
+  </section>
+</div>
+
 
 <script>
 (function(){
@@ -535,16 +558,52 @@
   });
 
   // prepare a clean one-page print: filename by factory, hide zero-qty fuels
+  function dval(id){var v=($(id)&&$(id).value||'').toString().trim();return v===''?'—':v;}
+  function row(k,v,cls){return '<div class="pitem'+(cls?' '+cls:'')+'"><span class="pk">'+k+'</span><span class="pv">'+v+'</span></div>';}
   function prepPrint(){
-    var org=($('c_org').value||'').trim()||($('c_name').value||'').trim()||'לקוח';
-    document.title='תחשיב חיסכון גז טבעי - '+org;
-    [['lpg_q','row_lpg'],['maz_q','row_maz'],['dsl_q','row_dsl']].forEach(function(pr){
-      var row=$(pr[1]); if(!row)return; if(num(pr[0])>0)row.classList.remove('printhide'); else row.classList.add('printhide');
-    });
+    var name=($('c_name').value||'').trim(), org=($('c_org').value||'').trim();
+    var who=org||name||'לקוח';
+    document.title='תחשיב חיסכון גז טבעי - '+who;
+    var d=new Date(), ds=d.toLocaleDateString('he-IL');
+    var sub=(org?org:'')+(org&&name?' · ':'')+(name?name:'')+(who?' · ':'')+ds;
+    $('pr_sub1').textContent=sub; $('pr_sub2').textContent=sub;
+    // logo (reuse embedded data URI)
+    var logoSrc=$('logo').getAttribute('src')||'';
+    $('pr_logo1').src=logoSrc; $('pr_logo2').src=logoSrc;
+    if(!logoSrc){$('pr_logo1').style.display='none';$('pr_logo2').style.display='none';}
+    // page 1: clone the live result data
+    var data=$('panel').querySelector('.data').cloneNode(true);
+    data.querySelectorAll('[id]').forEach(function(n){n.removeAttribute('id');});
+    var holder=$('pr_result'); holder.innerHTML=''; holder.appendChild(data);
+    // page 2: build details
+    var fuels=[['גפ״מ','lpg_q','lpg_p'],['מזוט','maz_q','maz_p'],['סולר','dsl_q','dsl_p']];
+    var fuelRows='';
+    fuels.forEach(function(f){ if(num(f[1])>0){ fuelRows+=row(f[0]+' — כמות שנתית','<span dir="ltr">'+dval(f[1])+'</span> טון'); fuelRows+=row(f[0]+' — מחיר לטון','₪ '+dval(f[2])); } });
+    if(fuelRows==='') fuelRows=row('לא הוזן דלק','—');
+    var html=''+
+      '<div class="pcard"><h3>פרטי הלקוח</h3><div class="pgrid">'+
+        row('שם איש קשר',dval('c_name'))+row('חברה / מפעל',dval('c_org'))+
+        row('אימייל','<span dir="ltr">'+dval('c_email')+'</span>')+row('טלפון','<span dir="ltr">'+dval('c_phone')+'</span>')+
+      '</div></div>'+
+      '<div class="pcard"><h3>הדלק הקיים</h3><div class="pgrid">'+fuelRows+'</div></div>'+
+      '<div class="pcard"><h3>פרמטרים של גז טבעי</h3><div class="pgrid">'+
+        row('מחיר גז טבעי','$ '+dval('gas_usd')+' / mmBtu')+row('שער דולר','₪ '+dval('usd_ils'))+
+        row('אזור חלוקה',$('region').value,'reg')+
+        row('מחיר הגז (ערום)','₪ '+dval('u_gas')+' / mmBtu')+
+        row('בלו','₪ '+dval('u_blo')+' / mmBtu')+
+        row('הולכה ותעריף מערכתי','₪ '+dval('u_hol')+' / mmBtu')+
+        row('דמי חלוקה','₪ '+dval('u_dist')+' / mmBtu')+
+        row('סה״כ מחיר ליחידה','₪ '+dval('u_total')+' / mmBtu')+
+      '</div></div>'+
+      '<div class="pcard"><h3>אומדן ההשקעה</h3><div class="pgrid">'+
+        row('מערכת גז טבעי','₪ '+dval('inv_sys'))+row('מבערים דואליים','₪ '+dval('inv_burn'))+
+        row('לקוח מרוחק','₪ '+dval('inv_far'))+row('שונות','₪ '+dval('inv_misc'))+
+        row('מענק','₪ '+dval('grant'))+row('מקדם רגישות',dval('sens'))+
+      '</div></div>';
+    $('pr_details').innerHTML=html;
   }
   function restorePrint(){
     document.title='מחשבון חיסכון והחזר השקעה – גז טבעי';
-    ['row_lpg','row_maz','row_dsl'].forEach(function(id){var r=$(id);if(r)r.classList.remove('printhide');});
   }
   window.addEventListener('beforeprint',prepPrint);
   window.addEventListener('afterprint',restorePrint);
