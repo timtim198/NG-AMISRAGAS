@@ -68,6 +68,30 @@
   input:focus,select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(52,195,224,.18)}
   input.err{border-color:var(--bad);box-shadow:0 0 0 3px rgba(192,80,77,.15)}
 
+  .cap{display:flex;align-items:center;gap:7px;background:#FFF6E9;border:1px solid #f3dcb4;color:#8a5a16;border-radius:9px;padding:8px 11px;font-size:12.5px;font-weight:600;margin-bottom:12px}
+  .cap svg{width:15px;height:15px;flex:none}
+  .req{color:var(--cyan-deep);font-weight:700}
+  .dual{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 4px}
+  .dual .cell{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:11px 8px;text-align:center}
+  .dual .cell.primary{background:rgba(244,162,59,.12);border-color:rgba(244,162,59,.4)}
+  .dual .cell .clbl{font-size:11.5px;color:#9fc4d2;font-weight:600;margin-bottom:4px}
+  .dual .cell .cv{font-size:30px;font-weight:800;line-height:1;color:#fff}
+  .dual .cell.primary .cv{color:var(--ember)}
+  .dual .cell .cu{font-size:12px;color:#9fc4d2;margin-top:2px}
+  .grant-note{font-size:12px;color:var(--cyan-deep);background:#EAF6FA;border:1px solid #cfeaf2;border-radius:8px;padding:7px 10px;margin-top:8px;line-height:1.5}
+  .grant-note b{color:var(--ink)}
+  .contact{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .contact .cstrip{height:3px;background:linear-gradient(90deg,#2BB673 0%,#1B1B5C 100%)}
+  .contact .cpad{padding:16px 18px}
+  .contact .ctitle{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:8px}
+  .contact .cname{font-size:17px;font-weight:700;color:var(--text)}
+  .contact .crole{font-size:13px;color:var(--muted);margin-top:1px}
+  .contact .cbtns{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap}
+  .contact a.cbtn{flex:1;min-width:130px;text-align:center;text-decoration:none;border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;border:1px solid var(--line);color:var(--ink);background:#fff;transition:filter .15s}
+  .contact a.cbtn.primary{background:linear-gradient(90deg,#1B1B5C,#2B2B7A);color:#fff;border:0}
+  .contact a.cbtn:hover{filter:brightness(1.04)}
+  .contact a.cbtn.wa{background:#25D366;color:#fff;border:0;display:flex;align-items:center;justify-content:center;gap:7px}
+  .contact a.cbtn.wa svg{width:17px;height:17px;flex:none}
   .result{position:sticky;top:18px}
   .panel{background:linear-gradient(160deg,var(--ink) 0%,var(--ink-2) 100%);border-radius:14px;color:#fff;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06)}
   .panel .strip{height:4px;background:linear-gradient(90deg,var(--cyan) 0%,var(--ember) 100%)}
@@ -179,8 +203,9 @@
       <div class="card">
         <div class="card-h"><h2>הדלק הקיים</h2><span class="badge">הצריכה הנוכחית</span></div>
         <div class="card-b">
+          <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="#8a5a16" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>הזינו את הכמות ה<span class="req">שנתית</span> לכל סוג דלק (בטון)</div>
           <table class="ftable">
-            <thead><tr><th>סוג דלק</th><th>כמות שנתית <span class="unit">(טון)</span></th><th>מחיר לטון <span class="unit">(₪)</span></th></tr></thead>
+            <thead><tr><th>סוג דלק</th><th>כמות <b>שנתית</b> <span class="unit">(טון)</span></th><th>מחיר לטון <span class="unit">(₪)</span></th></tr></thead>
             <tbody>
               <tr><td class="fuel">גפ״מ</td><td><input id="lpg_q" inputmode="decimal" placeholder="0"></td><td><input id="lpg_p" inputmode="decimal" placeholder="0"></td></tr>
               <tr><td class="fuel">מזוט</td><td><input id="maz_q" inputmode="decimal" value="300"></td><td><input id="maz_p" inputmode="decimal" value="2600"></td></tr>
@@ -195,7 +220,7 @@
         <div class="card-b">
           <div class="row"><label>מחיר גז טבעי<span class="hint">מחיר ה״ערום״ ($/mmBtu)</span></label><input id="gas_usd" inputmode="decimal" value="5.5"></div>
           <div class="row"><label>שער דולר <span class="hint">₪ לדולר</span></label><input id="usd_ils" inputmode="decimal" value="3.5"></div>
-          <div class="row"><label>אזור חלוקה <span class="hint">קובע דמי חלוקה ועלות חיבור</span></label>
+          <div class="row"><label>אזור חלוקה <span class="hint"><span class="req">יש לבחור מהרשימה</span> · קובע דמי חלוקה ועלות חיבור</span></label>
             <select id="region"><option>נגב</option><option>דרום</option><option>מרכז</option><option>חדרה</option><option>צפון</option><option>ירושלים</option></select></div>
         </div>
       </div>
@@ -208,6 +233,7 @@
           <div class="row"><label>לקוח מרוחק</label><input id="inv_far" inputmode="decimal" value="0"></div>
           <div class="row"><label>שונות</label><input id="inv_misc" inputmode="decimal" value="200000"></div>
           <div class="row"><label>מענק <span class="hint">מנוכה מסך ההשקעה</span></label><input id="grant" inputmode="decimal" value="0"></div>
+          <div class="grant-note"><b>שווה לבדוק:</b> ייתכן שאתם זכאים למענק ממשלתי להסבה לגז טבעי (הוראת מנכ״ל 4.82). המספר ״כולל מענק״ מדגים את ההשפעה. לבדיקת זכאות וגובה המענק — צרו קשר עם תומר ביטון (פרטים למטה).</div>
           <div class="row"><label>מקדם רגישות <span class="hint">1 = ללא שינוי</span></label><input id="sens" inputmode="decimal" value="1"></div>
         </div>
       </div>
@@ -224,8 +250,11 @@
           </div>
 
           <div class="data">
-            <div class="kicker">החזר השקעה נומינלי</div>
-            <div class="hero-num"><span class="v" id="payback">—</span><span class="u" id="payback_u">שנים</span></div>
+            <div class="kicker">החזר השקעה נומינלי (שנים)</div>
+            <div class="dual">
+              <div class="cell primary"><div class="clbl">כולל מענק</div><div class="cv" id="payback">—</div><div class="cu">שנים</div></div>
+              <div class="cell"><div class="clbl">ללא מענק</div><div class="cv" id="payback_ng">—</div><div class="cu">שנים</div></div>
+            </div>
             <div class="hero-sub">ללא עלות מימון</div>
             <div class="saving"><div class="lbl">חיסכון שנתי צפוי</div><div class="amt" id="annual_saving">—</div><div class="pct" id="saving_pct"></div></div>
             <div class="lines">
@@ -245,12 +274,27 @@
           </div>
         </div>
       </div>
+
+      <div class="contact">
+        <div class="cstrip"></div>
+        <div class="cpad">
+          <div class="ctitle">לבירור על מענקים ולהצעה מותאמת</div>
+          <div class="cname">תומר ביטון</div>
+          <div class="crole">מנהל תחום גז טבעי וחשמל · אמישראגז Energy</div>
+          <div class="cbtns">
+            <a class="cbtn wa" href="https://wa.me/972528208202?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%9F%20%D7%94%D7%97%D7%99%D7%A1%D7%9B%D7%95%D7%9F%20%D7%A9%D7%9C%20%D7%90%D7%9E%D7%99%D7%A9%D7%A8%D7%90%D7%92%D7%96%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%91%D7%93%D7%95%D7%A7%20%D7%96%D7%9B%D7%90%D7%95%D7%AA%20%D7%9C%D7%9E%D7%A2%D7%A0%D7%A7%20%D7%95%D7%94%D7%A6%D7%A2%D7%94%20%D7%9E%D7%95%D7%AA%D7%90%D7%9E%D7%AA." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.99-1.617zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>וואטסאפ</a>
+            <a class="cbtn primary" href="mailto:ng@amisragas.co.il?subject=פנייה%20מהמחשבון%20-%20מעבר%20לגז%20טבעי">שליחת מייל</a>
+          </div>
+        </div>
+      </div>
     </aside>
   </div>
 
   <div class="foot">
     <b>התחשיב הינו לאוריינטציה בלבד ואינו מהווה הצעת מחיר.</b>
     החזר ההשקעה מחושב נומינלית וללא עלות מימון. עלות החיבור, דמי החלוקה, ההולכה והבלו נקבעים על ידי משרדי האנרגיה והאוצר; הבלו צמוד לקביעת אגף המכס והבלו ומתעדכן מעת לעת.
+    <br><br>
+    <b>הערה בדבר המענק:</b> ככל שמוצג בתחשיב רכיב מענק, הוא מבוסס על האפשרות להגשת בקשה במסגרת מסלולי הסיוע הממשלתיים להסבת מערכות לגז טבעי (לרבות הוראת מנכ״ל 4.82), ככל שיהיו פתוחים להגשה במועד הרלוונטי. קבלת המענק אינה מובטחת והיא כפופה, בין היתר, לעמידת הפרויקט ותנאי המבקש בדרישות ההוראה, לקבלת כלל האישורים הנדרשים, לעמידה באבני הדרך שנקבעו על ידי הגורמים המוסמכים ולמתן אישור סופי של הרשויות. לפיכך, החישוב הכולל מענק מובא לצורכי המחשה בלבד ואינו מהווה התחייבות לקבלת מענק או לגובהו.
   </div>
 
   <!-- honeypot -->
@@ -302,9 +346,12 @@
     r.gasAnnual=mmbtu*unit;
     r.saving=r.curAnnual-r.gasAnnual;
     r.savingPct=r.curAnnual>0?(r.saving/r.curAnnual)*100:0;
-    r.invest=fees.conn+num('inv_sys')+num('inv_burn')+num('inv_far')+num('inv_misc')-num('grant');
+    r.grant=num('grant');
+    r.invest=fees.conn+num('inv_sys')+num('inv_burn')+num('inv_far')+num('inv_misc')-r.grant;
+    r.investNoGrant=r.invest+r.grant;
     var s=num('sens')||1;
     r.payback=r.saving>0?r.invest/r.saving/s:null;
+    r.paybackNoGrant=r.saving>0?r.investNoGrant/r.saving/s:null;
     r.ok=true;return r;
   }
 
@@ -312,8 +359,8 @@
     var p=$('panel'); p.classList.remove('locked'); p.classList.add('unlocked');
     var chip=$('class_chip');
     if(!r.ok){
-      ['payback','annual_saving','cur_cost','gas_cost','invest'].forEach(function(id){setText(id,'—');});
-      setText('payback_u',''); setText('saving_pct','');
+      ['payback','payback_ng','annual_saving','cur_cost','gas_cost','invest'].forEach(function(id){setText(id,'—');});
+      setText('saving_pct','');
       setText('gas_qty', r.mmbtu>0?nf0.format(Math.round(r.mmbtu))+' mmBtu':'—');
       chip.className='chip warn';
       chip.textContent = r.mmbtu<=0 ? 'נא להזין את הדלק הקיים' : 'מחוץ לטווח (בינוני/גדול)';
@@ -325,8 +372,8 @@
     var pct=$('saving_pct');
     if(r.saving>0){pct.textContent='כ‑'+nf1.format(r.savingPct)+'% חיסכון לעומת הדלק הקיים';pct.style.color='#7fd4a8';}
     else{pct.textContent='אין חיסכון בתנאים אלו';pct.style.color='#ffb3a8';}
-    if(r.payback!==null){setText('payback',nf1.format(r.payback));setText('payback_u','שנים');}
-    else{setText('payback','—');setText('payback_u','');}
+    setText('payback', r.payback!==null?nf1.format(r.payback):'—');
+    setText('payback_ng', r.paybackNoGrant!==null?nf1.format(r.paybackNoGrant):'—');
     chip.className='chip ok'; chip.textContent=r.lbl+' · '+r.region;
   }
 
@@ -370,11 +417,11 @@
       btn.disabled=false; btn.textContent=orig;
       $('printBtn').style.display='block';
       if(res&&res.skipped){msg.className='submsg ok';msg.textContent='התוצאה חושבה. (שליחת מייל לא הוגדרה)';}
-      else if(res&&res.success){msg.className='submsg ok';msg.textContent='נשלח בהצלחה! בדקו את המייל (כולל ספאם).';}
-      else{msg.className='submsg bad';msg.textContent='השרת דחה: '+((res&&res.message)?res.message:JSON.stringify(res));}
-    }).catch(function(err){
+      else if(res&&res.success){msg.className='submsg ok';msg.textContent='הפרטים נשלחו לנציג אמישראגז. ניצור קשר בהקדם.';}
+      else{msg.className='submsg bad';msg.textContent='התוצאה חושבה, אך שליחת הפרטים נכשלה. נסו שוב או צרו קשר טלפוני.';}
+    }).catch(function(){
       btn.disabled=false; btn.textContent=orig; $('printBtn').style.display='block';
-      msg.className='submsg bad'; msg.textContent='שגיאת רשת: '+(err&&err.message?err.message:err);
+      msg.className='submsg bad'; msg.textContent='התוצאה חושבה, אך שליחת הפרטים נכשלה (בעיית רשת).';
     });
   });
 
@@ -400,7 +447,21 @@
       .catch(function(){ /* unreachable: keep available */ });
   }
 
-  // (deterrents disabled in diagnostic build)
+  // ---- cosmetic copy deterrents (not real protection) ----
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('dragstart',function(e){e.preventDefault();});
+  ['copy','cut'].forEach(function(ev){
+    document.addEventListener(ev,function(e){
+      var t=e.target; if(t&&(t.tagName==='INPUT'||t.tagName==='SELECT'||t.tagName==='TEXTAREA'))return;
+      e.preventDefault();
+    });
+  });
+  document.addEventListener('keydown',function(e){
+    var k=e.key.toLowerCase();
+    if(k==='f12'){e.preventDefault();return;}
+    if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(k==='i'||k==='j'||k==='c')){e.preventDefault();return;}
+    if((e.ctrlKey||e.metaKey)&&(k==='u'||k==='s')){e.preventDefault();return;}
+  });
 })();
 </script>
 </body>
